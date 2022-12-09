@@ -1,4 +1,6 @@
             var currentTab = 0;
+
+            
             console.log('Initially ' + (window.navigator.onLine ? 'on' : 'off') + 'line');
             window.addEventListener('beforeunload', function (e) {
                 
@@ -97,9 +99,16 @@ icon: 'error'
               }
 
               function storeInLocal(){
-                console.log(localStorage.getItem('formData'));
-                localStorage.setItem("formData",JSON.stringify($("#regForm").serializeArray()));
-                console.log(localStorage.getItem('formData'));
+               
+                var a = JSON.stringify($("#regForm").serializeArray())
+                var encryptedAES = CryptoJS.AES.encrypt(a, "My Secret Passphrase");
+                localStorage.setItem("formData",encryptedAES.toString());
+            
+           
+
+                    console.log(encryptedAES.toString());
+               
+                
               }
 
               function validateForm() {
